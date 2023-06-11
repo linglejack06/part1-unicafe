@@ -21,7 +21,10 @@ function Options ({ handleClick }) {
 }
 function StatisticsRow({ text, value }) {
   return (
-    <p>{text} {value}</p>
+    <tr>
+      <th>{text}</th>
+      <td>{value}</td>
+    </tr>
   )
 }
 function Statistics ({good, neutral, bad, hasFeedback}) {
@@ -30,14 +33,16 @@ function Statistics ({good, neutral, bad, hasFeedback}) {
   const positive = good / all;
   if (hasFeedback) {
     return (
-      <div>
-        <StatisticsRow text='good' value={good} />
-        <StatisticsRow text='neutral' value={neutral} />
-        <StatisticsRow text='bad' value={bad} />
-        <StatisticsRow text='all' value={all} />
-        <StatisticsRow text='average' value={avg} />
-        <StatisticsRow text='positive' value={positive} />
-      </div>
+      <table>
+        <tbody>
+          <StatisticsRow text='good' value={good} />
+          <StatisticsRow text='neutral' value={neutral} />
+          <StatisticsRow text='bad' value={bad} />
+          <StatisticsRow text='all' value={all} />
+          <StatisticsRow text='average' value={avg} />
+          <StatisticsRow text='positive' value={positive} />
+        </tbody>
+      </table>
     )
   } else {
     return (
@@ -50,7 +55,6 @@ function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const [hasFeedback, setHasFeedback] = useState(false);
-  console.log(good, neutral, bad);
   const handleClick = (e) => {
     if(!hasFeedback) {
       setHasFeedback(true)
