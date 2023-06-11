@@ -19,27 +19,37 @@ function Options ({ handleClick }) {
     </div>
   )
 }
-function Statistics ({good, neutral, bad}) {
+function Statistics ({good, neutral, bad, hasFeedback}) {
   const all = good + neutral + bad;
   const avg = (good + neutral + bad) / 3
   const positive = good / all;
-  return (
-    <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {avg}</p>
-      <p>positive {positive ? positive : 'give feedback'}</p>
-    </div>
-  )
+  if (hasFeedback) {
+    return (
+      <div>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all {all}</p>
+        <p>average {avg}</p>
+        <p>positive {positive}</p>
+      </div>
+    )
+  } else {
+    return (
+      <p>No feedback given</p>
+    )
+  }
 }
 function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+  const [hasFeedback, setHasFeedback] = useState(false);
   console.log(good, neutral, bad);
   const handleClick = (e) => {
+    if(!hasFeedback) {
+      setHasFeedback(true)
+    };
     switch(e.target.name) {
       case 'good':
         setGood(good + 1);
@@ -59,7 +69,7 @@ function App() {
       <Header title='give feedback' />
       <Options handleClick={handleClick} />
       <Header title='statistics' />
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} hasFeedback={hasFeedback}/>
     </div>
   );
 }
