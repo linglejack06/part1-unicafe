@@ -19,6 +19,11 @@ function Options ({ handleClick }) {
     </div>
   )
 }
+function StatisticsRow({ text, value }) {
+  return (
+    <p>{text} {value}</p>
+  )
+}
 function Statistics ({good, neutral, bad, hasFeedback}) {
   const all = good + neutral + bad;
   const avg = (good + neutral + bad) / 3
@@ -26,12 +31,12 @@ function Statistics ({good, neutral, bad, hasFeedback}) {
   if (hasFeedback) {
     return (
       <div>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all}</p>
-        <p>average {avg}</p>
-        <p>positive {positive}</p>
+        <StatisticsRow text='good' value={good} />
+        <StatisticsRow text='neutral' value={neutral} />
+        <StatisticsRow text='bad' value={bad} />
+        <StatisticsRow text='all' value={all} />
+        <StatisticsRow text='average' value={avg} />
+        <StatisticsRow text='positive' value={positive} />
       </div>
     )
   } else {
