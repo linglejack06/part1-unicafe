@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+function Header({ title }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h2>{title}</h2>
+  )
+}
+function Button ({handleClick, text, name}) {
+  return (
+    <button onClick={handleClick} name={name}>{text}</button>
+  )
+}
+function Options ({ handleClick }) {
+  return (
+    <div>
+      <Button handleClick={handleClick} text='good' name='good'/>
+      <Button handleClick={handleClick} text='neutral' name='neutral'/>
+      <Button handleClick={handleClick} text='bad' name='bad'/>
+    </div>
+  )
+}
+function Statistics ({good, neutral, bad}) {
+  return (
+    <div>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+    </div>
+  )
+}
+function App() {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+  console.log(good, neutral, bad);
+  const handleClick = (e) => {
+    switch(e.target.name) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'neutral':
+        setNeutral(neutral + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;
+      default:
+        return
+    }
+  }
+  return (
+    <div>
+      <Header title='give feedback' />
+      <Options handleClick={handleClick} />
+      <Header title='statistics' />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 }
